@@ -12,14 +12,14 @@ pub struct ModelDetailParams {
 }
 
 #[derive(Clone)]
-pub struct IpInfoServer {
+pub struct ToolsServer {
     // tool_router 字段是必需的，#[tool_handler] 宏会使用它
     tool_router: ToolRouter<Self>,
 }
 
-impl IpInfoServer {
+impl ToolsServer {
     pub fn new() -> Self {
-        IpInfoServer {
+        ToolsServer {
             // 调用由 #[tool_router] 宏自动生成的方法
             tool_router: Self::tool_router(),
         }
@@ -28,7 +28,7 @@ impl IpInfoServer {
 
 // 使用 tool_router 宏标注工具方法所在的 impl 块
 #[tool_router]
-impl IpInfoServer {
+impl ToolsServer {
     /// 获取 OpenRouter 平台支持的所有模型列表
     #[tool(description = "获取 OpenRouter 平台支持的所有模型列表，包括模型ID、名称、描述、上下文长度和价格信息")]
     pub async fn get_openrouter_models(&self) -> Result<CallToolResult, ErrorData> {
@@ -99,10 +99,10 @@ impl IpInfoServer {
 
 // 使用 tool_handler 宏自动实现工具请求处理
 #[tool_handler]
-impl ServerHandler for IpInfoServer {
+impl ServerHandler for ToolsServer {
     fn get_info(&self) -> ServerInfo {
         ServerInfo {
-            instructions: Some("提供公网 IP 信息查询服务，可以获取 IP 地址、地理位置、ISP 等信息".into()),
+            instructions: Some("通用工具集，提供公网 IP 查询、OpenRouter 模型列表及详情查询等功能".into()),
             capabilities: ServerCapabilities::builder().enable_tools().build(),
             ..Default::default()
         }
