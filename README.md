@@ -1,32 +1,48 @@
-# Rust MCP Server - IP Info Query Service
+# 🦀 Rust MCP Server - Tools
 
-A Model Context Protocol (MCP) server implemented in Rust using the official rmcp SDK, providing public IP information query functionality.
+A Model Context Protocol (MCP) server implemented in Rust using the official rmcp SDK, providing a collection of utility tools.
 
-## Features
+## 🧰 Available Tools
 
-- ✅ Get public IP address
-- ✅ Query IP geolocation (city, region, country)
-- ✅ Get ISP information
-- ✅ Display timezone information
-- ✅ Provide latitude and longitude coordinates
+### 🛠️ get_ip_info
 
-## Quick Start
+Get the current machine's public IP information.
 
-### Configure MCP Client
+- ✅ IP address
+- ✅ Geolocation (city, region, country)
+- ✅ ISP information
+- ✅ Timezone
+- ✅ Latitude and longitude coordinates
+
+### 🛠️ get_openrouter_models
+
+Get the list of all models supported by the OpenRouter platform, returned in compact format: `model_id | name | date`.
+
+### 🛠️ get_openrouter_model_detail
+
+Get detailed information for a specific model by ID.
+
+| Parameter | Type   | Description                          |
+|-----------|--------|--------------------------------------|
+| `id`      | string | Model ID, e.g. `openai/gpt-4o`      |
+
+Returns name, description, context length, pricing, and the date the model was added to OpenRouter.
+
+## 🚀 Quick Start
+
+### ⚙️ Configure MCP Client
 
 #### Claude Desktop Configuration
 
-**Using npx (recommended):**
-
 Edit the configuration file:
-- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
-- Linux: `~/.config/Claude/claude_desktop_config.json`
+- ✅ macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- ✅ Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+- ✅ Linux: `~/.config/Claude/claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
-    "ip-info": {
+    "tools": {
       "command": "npx",
       "args": ["-y", "@liushoukai/rust-mcp-client"]
     }
@@ -34,41 +50,18 @@ Edit the configuration file:
 }
 ```
 
-
-#### Cursor Configuration
-
-**Using npx (recommended):**
-```json
-{
-  "mcpServers": {
-    "ip-info": {
-      "command": "npx",
-      "args": ["-y", "@liushoukai/rust-mcp-client"]
-    }
-  }
-}
-```
-
-### Restart Claude Desktop
+### 🔄 Restart Claude Desktop
 
 After configuration, completely quit and restart Claude Desktop.
 
-### Using the Tool
+## 🔍 Enable Verbose Logging
 
-Simply ask in Claude Desktop:
-
-```
-Please get the current machine's public IP information
-```
-
-## Enable Verbose Logging 🔍
-
-If you need to view detailed runtime logs (for debugging or understanding program operation), you can add an `env` field to the configuration:
+Add an `env` field to the configuration to view detailed runtime logs:
 
 ```json
 {
   "mcpServers": {
-    "ip-info": {
+    "tools": {
       "command": "npx",
       "args": ["-y", "@liushoukai/rust-mcp-client"],
       "env": {
