@@ -969,6 +969,7 @@ name = "rust-mcp-client"
 version = "0.1.5"
 dependencies = [
  "anyhow",
+ "chrono",
  "reqwest",
  "rmcp",
  "schemars",
