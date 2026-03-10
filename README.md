@@ -1,5 +1,7 @@
 # 🦀 Rust MCP Server - Tools
 
+[![MCP Badge](https://lobehub.com/badge/mcp/liushoukai-rust-mcp-client)](https://lobehub.com/mcp/liushoukai-rust-mcp-client)
+
 A Model Context Protocol (MCP) server implemented in Rust using the official rmcp SDK, providing a collection of utility tools.
 
 ## 🧰 Available Tools
