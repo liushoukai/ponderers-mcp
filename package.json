@@ -1,6 +1,6 @@
 {
   "name": "@liushoukai/ponderers-mcp",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "description": "MCP server for IP information lookup - Rust implementation",
   "main": "bin/index.js",
   "bin": {
