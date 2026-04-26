@@ -8,16 +8,29 @@ const path = require('path');
 const packageJson = require('../package.json');
 const version = packageJson.version;
 
-const cargoPath = path.join(__dirname, '../Cargo.toml');
-const cargo = fs.readFileSync(cargoPath, 'utf8');
-
-// Only replace the version line in the [package] section
-const updated = cargo.replace(/^version = ".*"$/m, `version = "${version}"`);
-
-if (cargo === updated) {
-  process.stderr.write(`Cargo.toml version is already ${version}\n`);
-  process.exit(0);
+function syncFile(filePath, pattern, replacement, label) {
+  const content = fs.readFileSync(filePath, 'utf8');
+  const updated = content.replace(pattern, replacement);
+  if (content === updated) {
+    process.stderr.write(`${label} version is already ${version}\n`);
+    return;
+  }
+  fs.writeFileSync(filePath, updated);
+  process.stderr.write(`Synced ${label} version to ${version}\n`);
 }
 
-fs.writeFileSync(cargoPath, updated);
-process.stderr.write(`Synced Cargo.toml version to ${version}\n`);
+// Cargo.toml: replace the version line in [package] section
+syncFile(
+  path.join(__dirname, '../Cargo.toml'),
+  /^version = ".*"$/m,
+  `version = "${version}"`,
+  'Cargo.toml'
+);
+
+// Cargo.lock: replace the version line directly under the root package entry
+syncFile(
+  path.join(__dirname, '../Cargo.lock'),
+  /(name = "ponderers-mcp"\nversion = )"[^"]*"/,
+  `$1"${version}"`,
+  'Cargo.lock'
+);
