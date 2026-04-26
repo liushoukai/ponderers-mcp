@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "node scripts/install.js",
-    "version": "node scripts/sync-version.js && git add Cargo.toml"
+    "version": "node scripts/sync-version.js && git add Cargo.toml Cargo.lock"
   },
   "files": [
     "bin/",
