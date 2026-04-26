@@ -1,10 +1,10 @@
 {
   "name": "@liushoukai/ponderers-mcp",
   "version": "1.0.0",
-  "description": "MCP server for IP information lookup - Rust implementation",
+  "description": "A collection of utility tools MCP server - Rust implementation",
   "main": "bin/index.js",
   "bin": {
-    "ponderers-mcp": "./bin/index.js"
+    "ponderers-mcp": "bin/index.js"
   },
   "scripts": {
     "postinstall": "node scripts/install.js"
@@ -17,6 +17,7 @@
     "mcp",
     "model-context-protocol",
     "ip-info",
+    "openrouter",
     "rust",
     "claude"
   ],
@@ -24,7 +25,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/liushoukai/ponderers-mcp.git"
+    "url": "git+https://github.com/liushoukai/ponderers-mcp.git"
   },
   "engines": {
     "node": ">=14"
