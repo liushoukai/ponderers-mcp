@@ -12,7 +12,7 @@ const streamPipeline = promisify(pipeline);
 
 // 配置参数
 const MAX_RETRIES = 3; // 最大重试次数
-const DOWNLOAD_TIMEOUT = 180000; // 下载超时时间（60秒）
+const DOWNLOAD_TIMEOUT = 180000; // 下载超时时间（3分钟）
 const RETRY_DELAY = 2000; // 重试延迟（2秒）
 
 // 读取包版本
@@ -25,11 +25,11 @@ const arch = process.arch;
 
 // 二进制文件名映射
 const binMap = {
-  'darwin-x64': 'rust-mcp-client-darwin-x64',
-  'darwin-arm64': 'rust-mcp-client-darwin-arm64',
-  'linux-x64': 'rust-mcp-client-linux-x64',
-  'linux-arm64': 'rust-mcp-client-linux-arm64',
-  'win32-x64': 'rust-mcp-client-win32-x64.exe',
+  'darwin-x64': 'ponderers-mcp-darwin-x64',
+  'darwin-arm64': 'ponderers-mcp-darwin-arm64',
+  'linux-x64': 'ponderers-mcp-linux-x64',
+  'linux-arm64': 'ponderers-mcp-linux-arm64',
+  'win32-x64': 'ponderers-mcp-win32-x64.exe',
 };
 
 const binKey = `${platform}-${arch}`;
@@ -47,7 +47,7 @@ const binPath = path.join(binDir, binName);
 
 // GitHub Release URL
 const GITHUB_USER = 'liushoukai';
-const GITHUB_REPO = 'rust-mcp-client';
+const GITHUB_REPO = 'ponderers-mcp';
 const downloadUrl = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/releases/download/v${version}/${binName}`;
 
 console.log(`正在为 ${platform}-${arch} 下载二进制文件...`);
@@ -214,9 +214,9 @@ downloadWithRetry(downloadUrl, binPath)
   .then(() => {
     console.log(`\n✅ 安装成功! 二进制文件位于: ${binPath}`);
     console.log('\n使用方法:');
-    console.log('  npx @liushoukai/rust-mcp-client');
+    console.log('  npx @liushoukai/ponderers-mcp');
     console.log('  或在 MCP 配置中使用:');
-    console.log('  { "command": "npx", "args": ["-y", "@liushoukai/rust-mcp-client"] }');
+    console.log('  { "command": "npx", "args": ["-y", "@liushoukai/ponderers-mcp"] }');
   })
   .catch((err) => {
     console.error('\n❌ 安装失败:', err.message);

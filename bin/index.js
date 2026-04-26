@@ -10,11 +10,11 @@ const arch = process.arch;
 
 // 二进制文件名映射
 const binMap = {
-  'darwin-x64': 'rust-mcp-client-darwin-x64',
-  'darwin-arm64': 'rust-mcp-client-darwin-arm64',
-  'linux-x64': 'rust-mcp-client-linux-x64',
-  'linux-arm64': 'rust-mcp-client-linux-arm64',
-  'win32-x64': 'rust-mcp-client-win32-x64.exe',
+  'darwin-x64': 'ponderers-mcp-darwin-x64',
+  'darwin-arm64': 'ponderers-mcp-darwin-arm64',
+  'linux-x64': 'ponderers-mcp-linux-x64',
+  'linux-arm64': 'ponderers-mcp-linux-arm64',
+  'win32-x64': 'ponderers-mcp-win32-x64.exe',
 };
 
 const binKey = `${platform}-${arch}`;
@@ -35,7 +35,7 @@ if (!fs.existsSync(binPath)) {
   console.error(`路径: ${binPath}`);
   console.error('');
   console.error('请尝试重新安装:');
-  console.error('  npm install -g @liushoukai/rust-mcp-client');
+  console.error('  npm install -g @liushoukai/ponderers-mcp');
   process.exit(1);
 }
 

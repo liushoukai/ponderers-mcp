@@ -1,6 +1,6 @@
 use rmcp::transport::stdio;
 use rmcp::ServiceExt;
-use rust_mcp_client::server::ToolsServer;
+use ponderers_mcp::server::ToolsServer;
 use tracing_subscriber::{fmt, EnvFilter};
 
 #[tokio::main]
