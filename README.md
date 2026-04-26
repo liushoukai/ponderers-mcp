@@ -1,4 +1,4 @@
-# 🦀 Rust MCP Server - Tools
+# 🦉 Ponderers MCP Server
 
 [![MCP Badge](https://lobehub.com/badge/mcp/liushoukai-ponderers-mcp)](https://lobehub.com/mcp/liushoukai-ponderers-mcp)
 
