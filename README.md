@@ -1,6 +1,6 @@
 # 🦀 Rust MCP Server - Tools
 
-[![MCP Badge](https://lobehub.com/badge/mcp/liushoukai-rust-mcp-client)](https://lobehub.com/mcp/liushoukai-rust-mcp-client)
+[![MCP Badge](https://lobehub.com/badge/mcp/liushoukai-ponderers-mcp)](https://lobehub.com/mcp/liushoukai-ponderers-mcp)
 
 A Model Context Protocol (MCP) server implemented in Rust using the official rmcp SDK, providing a collection of utility tools.
 
@@ -46,7 +46,7 @@ Edit the configuration file:
   "mcpServers": {
     "tools": {
       "command": "npx",
-      "args": ["-y", "@liushoukai/rust-mcp-client"]
+      "args": ["-y", "@liushoukai/ponderers-mcp"]
     }
   }
 }
@@ -65,7 +65,7 @@ Add an `env` field to the configuration to view detailed runtime logs:
   "mcpServers": {
     "tools": {
       "command": "npx",
-      "args": ["-y", "@liushoukai/rust-mcp-client"],
+      "args": ["-y", "@liushoukai/ponderers-mcp"],
       "env": {
         "RUST_LOG": "debug"
       }

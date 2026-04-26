@@ -19,32 +19,32 @@ jobs:
           # macOS Intel
           - os: macos-latest
             target: x86_64-apple-darwin
-            artifact_name: rust-mcp-client
-            release_name: rust-mcp-client-darwin-x64
+            artifact_name: ponderers-mcp
+            release_name: ponderers-mcp-darwin-x64
 
           # macOS Apple Silicon
           - os: macos-latest
             target: aarch64-apple-darwin
-            artifact_name: rust-mcp-client
-            release_name: rust-mcp-client-darwin-arm64
+            artifact_name: ponderers-mcp
+            release_name: ponderers-mcp-darwin-arm64
 
           # Linux x64
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            artifact_name: rust-mcp-client
-            release_name: rust-mcp-client-linux-x64
+            artifact_name: ponderers-mcp
+            release_name: ponderers-mcp-linux-x64
 
           # Linux ARM64
           - os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
-            artifact_name: rust-mcp-client
-            release_name: rust-mcp-client-linux-arm64
+            artifact_name: ponderers-mcp
+            release_name: ponderers-mcp-linux-arm64
 
           # Windows x64
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            artifact_name: rust-mcp-client.exe
-            release_name: rust-mcp-client-win32-x64.exe
+            artifact_name: ponderers-mcp.exe
+            release_name: ponderers-mcp-win32-x64.exe
 
     steps:
       - name: Checkout code
@@ -106,11 +106,11 @@ jobs:
           prerelease: false
           generate_release_notes: true
           files: |
-            artifacts/rust-mcp-client-darwin-x64/rust-mcp-client-darwin-x64
-            artifacts/rust-mcp-client-darwin-arm64/rust-mcp-client-darwin-arm64
-            artifacts/rust-mcp-client-linux-x64/rust-mcp-client-linux-x64
-            artifacts/rust-mcp-client-linux-arm64/rust-mcp-client-linux-arm64
-            artifacts/rust-mcp-client-win32-x64.exe/rust-mcp-client-win32-x64.exe
+            artifacts/ponderers-mcp-darwin-x64/ponderers-mcp-darwin-x64
+            artifacts/ponderers-mcp-darwin-arm64/ponderers-mcp-darwin-arm64
+            artifacts/ponderers-mcp-linux-x64/ponderers-mcp-linux-x64
+            artifacts/ponderers-mcp-linux-arm64/ponderers-mcp-linux-arm64
+            artifacts/ponderers-mcp-win32-x64.exe/ponderers-mcp-win32-x64.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
