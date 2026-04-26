@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-// 检测平台和架构
 const platform = process.platform;
 const arch = process.arch;
 
-// 二进制文件名映射
 const binMap = {
   'darwin-x64': 'ponderers-mcp-darwin-x64',
   'darwin-arm64': 'ponderers-mcp-darwin-arm64',
@@ -17,60 +17,60 @@ const binMap = {
   'win32-x64': 'ponderers-mcp-win32-x64.exe',
 };
 
-const binKey = `${platform}-${arch}`;
-const binName = binMap[binKey];
+const binName = binMap[`${platform}-${arch}`];
 
 if (!binName) {
-  console.error(`错误: 不支持的平台 ${platform}-${arch}`);
-  console.error('支持的平台:', Object.keys(binMap).join(', '));
+  process.stderr.write(`Error: unsupported platform ${platform}-${arch}\n`);
+  process.stderr.write(`Supported platforms: ${Object.keys(binMap).join(', ')}\n`);
   process.exit(1);
 }
 
-// 二进制文件路径
 const binPath = path.join(__dirname, binName);
 
-// 检查二进制文件是否存在
-if (!fs.existsSync(binPath)) {
-  console.error(`错误: 找不到二进制文件 ${binName}`);
-  console.error(`路径: ${binPath}`);
-  console.error('');
-  console.error('请尝试重新安装:');
-  console.error('  npm install -g @liushoukai/ponderers-mcp');
-  process.exit(1);
+async function ensureBinary() {
+  if (fs.existsSync(binPath)) return;
+
+  const packageJson = require('../package.json');
+  const { downloadBinary } = require('../scripts/download');
+
+  process.stderr.write('Binary not found, downloading from GitHub Release...\n');
+  await downloadBinary(packageJson.version, binName, binPath);
+  process.stderr.write('\nDownload complete, starting...\n');
 }
 
-// 确保文件有执行权限 (Unix 系统)
-if (platform !== 'win32') {
-  try {
-    fs.chmodSync(binPath, '755');
-  } catch (err) {
-    // 忽略权限错误
+function launch() {
+  if (platform !== 'win32') {
+    try { fs.chmodSync(binPath, '755'); } catch (_) {}
   }
+
+  const child = spawn(binPath, process.argv.slice(2), {
+    stdio: 'inherit',
+    env: process.env,
+  });
+
+  child.on('exit', (code, signal) => {
+    if (signal) {
+      process.kill(process.pid, signal);
+    } else {
+      process.exit(code);
+    }
+  });
+
+  child.on('error', (err) => {
+    process.stderr.write(`Failed to start: ${err.message}\n`);
+    process.exit(1);
+  });
+
+  process.on('SIGINT', () => {
+    child.kill('SIGINT');
+    child.kill('SIGTERM');
+  });
 }
 
-// 执行 Rust 二进制文件，透传所有参数和输入输出
-const child = spawn(binPath, process.argv.slice(2), {
-  stdio: 'inherit', // 继承父进程的 stdin, stdout, stderr
-  env: process.env, // 继承环境变量
-});
-
-// 处理退出
-child.on('exit', (code, signal) => {
-  if (signal) {
-    process.kill(process.pid, signal);
-  } else {
-    process.exit(code);
-  }
-});
-
-// 处理错误
-child.on('error', (err) => {
-  console.error('启动失败:', err.message);
-  process.exit(1);
-});
-
-// 处理中断信号
-process.on('SIGINT', () => {
-  child.kill('SIGINT');
-  child.kill('SIGTERM');
-});
+ensureBinary()
+  .then(launch)
+  .catch((err) => {
+    process.stderr.write(`\nFailed to obtain binary: ${err.message}\n`);
+    process.stderr.write('Try reinstalling: npm install -g @liushoukai/ponderers-mcp\n');
+    process.exit(1);
+  });
